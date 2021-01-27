@@ -1,1 +1,134 @@
-Hola
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Uploading Files</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/icon.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	
+	<div id="app" class="min-vh-100 bg-light">
+		<header class="p-5">
+			<h1 class="text-center display-2">Uploading Files Multiples</h1>
+		</header>	
+		<form id="FormUploadingFiles">
+			
+			<div class="container p-2 border">
+				<div class="bg-white">
+					<h2 class="text-center p-2">Selecting Files</h2>
+			
+					<input type="file" name="files[]" multiple="true" id="FormUploadingFiles_files" @change="updateSelectingImages">
+					<div class="text-center">
+						<b class="icon-uploading-files text-info large material-icons" @click="selectingImages">
+							<!-- photo_library -->
+							unarchive
+						</b>
+					</div>				
+
+					<div v-if="btn_visible_guardar" class="d-flex justify-content-center mt-3">
+						<input :disabled="valueUploadFiles == 100" class="btn btn-lg btn-primary" type="button" :value="text_btn_upload" @click="startUploadingFiles">
+					</div>
+					<br>
+				</div>
+				<span id="Anchor_to_Files"></span>
+				<div v-if="btn_visible_guardar" class="mt-2 bg-white">
+					<br>
+					<div v-if="show_progress" class="d-flex justify-content-center">
+						<span class="btn btn-danger border-white mx-1" v-if="valueUploadFiles == 100" @click="resetFormUploadingFiles">Reset</span>
+						<progress min="0" max="100" :value="valueUploadFiles" class="border btn btn-block"></progress>
+						<span class="btn">{{valueUploadFiles}}%</span>
+					</div>
+
+					<div class="container mt-3 p-4">
+						<h5>{{TotalFiles}} Selected files.</h5>
+						<div id="list"></div>
+					</div>					
+				</div>
+			</div>
+
+		</form>
+		<br>
+		<br>
+	</div>
+
+	<script>
+		app=new Vue({
+			el:"#app",
+			data:{
+				btn_visible_guardar: false,
+				valueUploadFiles: 0,
+				show_progress: false,
+				TotalFiles: 0,
+				text_btn_upload:'Subir archivos'
+			},
+			methods:{
+				resetFormUploadingFiles(){
+					this.btn_visible_guardar = false,
+					this.valueUploadFiles = 0,
+					this.show_progress = false,
+					this.TotalFiles = 0,
+					this.text_btn_upload = 'Subir archivos'	
+					FormUploadingFiles.reset()
+					history.pushState({id:1}, null, location.href.split("#")[0])				
+				},
+				startUploadingFiles(){
+					var form=new FormData( FormUploadingFiles )
+					ajax=new XMLHttpRequest()
+					ajax.open("post","php/server.php")
+					
+					ajax.upload.addEventListener('progress',(e)=>{
+						this.show_progress = true
+						this.valueUploadFiles = (Math.ceil(e.loaded*100) /e.total).toFixed(0)
+					})
+					ajax.upload.addEventListener('load',()=>{
+					console.log(ajax.responseText)
+						this.text_btn_upload = 'Archivos Subidos'
+					})
+					
+					ajax.send(form)								
+				},
+				prepareFileReader(e){
+				    var files = e.files;
+				    for (var i = 0, f; f = files[i]; i++) {
+
+				    if (!f.type.match('image.*')) {
+				        continue;
+				    }
+
+				    var reader = new FileReader();
+
+				    reader.onload = (function(theFile) {
+				        return function(e) {
+				        	var span = document.createElement('span');
+				         	span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+				          	list.insertBefore(span, null);
+				        };
+				    })(f);
+
+				    	reader.readAsDataURL(f);
+				    }
+				},
+				updateSelectingImages(){
+					if(event.target.files.length>0){
+						this.TotalFiles = event.target.files.length
+						this.btn_visible_guardar = true
+						this.prepareFileReader(event.target)
+						setTimeout(()=>{
+							//location.href = "#Anchor_to_Files"
+							window.scrollTo(0, Anchor_to_Files.offsetTop-80)
+						}, 1000)
+					}
+				},
+				selectingImages(){
+					FormUploadingFiles_files.click()
+				}
+			}
+		})
+	</script>
+
+</body>
+</html>

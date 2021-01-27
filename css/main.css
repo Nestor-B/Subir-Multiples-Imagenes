@@ -1,0 +1,8 @@
+body{}
+#FormUploadingFiles_files{display: none;}
+#list{display: grid;grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));grid-gap: 10px;max-width: 100%;}
+#list span{word-wrap: break-word;}
+#list span img{max-width: 100%;height: 100%;border: 1px solid #ccc;min-height: 130px;}
+.icon-uploading-files{font-size: 7rem;cursor: pointer;background: rgba(225,225,225,0.2);transform: scale(1.05);transition: 50ms;}
+.icon-uploading-files:hover{transform: scale(1.10);text-shadow: 0 0 10px rgba(0,0,0,0.3);}
+progress{display: block;width: 50%;}
