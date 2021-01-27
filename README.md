@@ -1,5 +1,5 @@
 # Subir-Multiples-Imagenes
-Subir multiples imagenes con PHP desde HTML, Vue js y XMLHttpRequest.
+Subir multiples imagenes con PHP desde HTML usando Vue js y XMLHttpRequest.
 
 ## Instalación
 
