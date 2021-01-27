@@ -10,9 +10,9 @@ Subir multiples imagenes con PHP desde HTML usando Vue js y XMLHttpRequest.
 
 ### Demo
 
-En el siguiente enlace se puede ver una simple maquetación del archivo.
-Lo puedes modificar a tu gusto.
-Las imágenes presentarán la preparación para la subida al servidor pero no funcionará del todo ya que se necesita el archivo en función del lado del servidor `img_uploaded`
+En el siguiente enlace se puede ver una simple maquetación del archivo `index.html`.
+El diseño lo puedes crear o modificar a tu gusto.
+Las imágenes cargadas presentarán la previsualización para la subida al servidor pero en el siguiente enlace no funcionará del todo ya que se necesita el archivo en función del lado del servidor `img_uploaded`
 
 Link: https://nestor-b.github.io/Subir-Multiples-Imagenes/
 
