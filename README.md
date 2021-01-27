@@ -4,7 +4,7 @@ Subir multiples imagenes con PHP desde HTML usando Vue js y XMLHttpRequest.
 ## Instalación
 
  - Copie y pegue los archivos a su proyecto. 
- - Corra el servidor PHP y abra el archivo `index.html` en su servidor y acceda a su `localhost` y luego a su directorio de proyecto para ver la parte visual o interfaz grafica.
+ - Corra el servidor PHP y abra el archivo `index.html` en su servidor y acceda a su `localhost` y luego al proyecto o su directorio de proyecto para ver la parte visual o interfaz grafica.
  - Intente subir archivos de tipo imagen.
  - Compruebe en la carpeta `img_uploaded` que los archivos se han subido correctamente.
 
